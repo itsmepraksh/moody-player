@@ -1,0 +1,9 @@
+
+# node resources 
+node_modules
+
+# credentials (.env file)
+.env
+
+# plan
+plan.excalidraw
