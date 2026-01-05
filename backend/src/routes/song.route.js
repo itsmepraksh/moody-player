@@ -1,7 +1,49 @@
 const express = require('express')
 const songModel = require('../models/songs.model')
 
+const multer = require('multer');
+const uploadFile = require('../service/storage.service');
+
+const upload = multer({storage:multer.memoryStorage()});
+
 const router = express.Router()
+
+router.post('/addSongs', upload.single("audio") ,async (req, res) => {
+
+    const { songName, songMood } = req.body;
+    console.log(req.body)
+    console.log(req.file)
+
+    const fileData = await uploadFile(req.file)
+
+    console.log(fileData)
+
+    res.send("its working kanhaji")
+
+    // try {
+
+    //     const response = await songModel.find({ songName })
+
+    //     if (!response) return res.status(409).json({
+    //         message: "songs already exists"
+    //     })
+
+    //     const addSongs = await songModel.create({
+    //         songName, songMood
+    //     })
+
+    //     res.status(201).json({
+    //         message: "song added successfully"
+    //     })
+
+    // } catch (err) {
+    //     return res.status(500).json({
+    //         message: err.message || "Internal server error"
+    //     })
+    // }
+
+
+})
 
 router.get('/', (req, res) => {
     res.send("deklo kanhaji")
@@ -46,34 +88,7 @@ router.post('/getSongs', async (req, res) => {
     }
 })
 
-router.post('/addSongs', async (req, res) => {
 
-    const { songName, songMood } = req.body;
-
-    try {
-
-        const response = await songModel.find({ songName })
-
-        if (!response) return res.status(409).json({
-            message: "songs already exists"
-        })
-
-        const addSongs = await songModel.create({
-            songName, songMood
-        })
-
-        res.status(201).json({
-            message: "song added successfully"
-        })
-
-    } catch (err) {
-        return res.status(500).json({
-            message: err.message || "Internal server error"
-        })
-    }
-
-
-})
 
 router.patch('/editSongs/:id', async (req, res) => {
     const songId = req.params.id;
