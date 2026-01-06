@@ -1,9 +1,5 @@
 const { ImageKit } = require("@imagekit/nodejs")
 
-
-console.log("ImageKit export:", ImageKit);
-console.log("ImageKit type:", typeof ImageKit);
-
 var imagekit = new ImageKit({
     publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
     privateKey: process.env.IMAGEKIT_PRIVATE_KEY,

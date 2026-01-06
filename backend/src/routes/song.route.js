@@ -4,43 +4,39 @@ const songModel = require('../models/songs.model')
 const multer = require('multer');
 const uploadFile = require('../service/storage.service');
 
-const upload = multer({storage:multer.memoryStorage()});
+const upload = multer({ storage: multer.memoryStorage() });
 
 const router = express.Router()
 
-router.post('/addSongs', upload.single("audio") ,async (req, res) => {
+router.post('/addSongs', upload.single("audio"), async (req, res) => {
 
     const { songName, songMood } = req.body;
-    console.log(req.body)
-    console.log(req.file)
+    
 
-    const fileData = await uploadFile(req.file)
+    try {
 
-    console.log(fileData)
+        const response = await songModel.find({ songName })
 
-    res.send("its working kanhaji")
+        if (!response) return res.status(409).json({
+            message: "songs already exists"
+        })
 
-    // try {
+        const fileData = await uploadFile(req.file);
 
-    //     const response = await songModel.find({ songName })
+        const addSongs = await songModel.create({
+            songName, songMood , songUrl : fileData.url
+        })
 
-    //     if (!response) return res.status(409).json({
-    //         message: "songs already exists"
-    //     })
+        res.status(201).json({
+            message: "song added successfully"
+        })
 
-    //     const addSongs = await songModel.create({
-    //         songName, songMood
-    //     })
+    } catch (err) {
+        return res.status(500).json({
+            message: err.message || "Internal server error"
+        })
+    }
 
-    //     res.status(201).json({
-    //         message: "song added successfully"
-    //     })
-
-    // } catch (err) {
-    //     return res.status(500).json({
-    //         message: err.message || "Internal server error"
-    //     })
-    // }
 
 
 })
@@ -88,8 +84,7 @@ router.post('/getSongs', async (req, res) => {
     }
 })
 
-
-
+//pending
 router.patch('/editSongs/:id', async (req, res) => {
     const songId = req.params.id;
     const { songMood, songName } = req.body;
@@ -117,25 +112,26 @@ router.patch('/editSongs/:id', async (req, res) => {
     }
 })
 
-router.delete('/deleteSong/:id',async (req,res) => {
-    
+//pending
+router.delete('/deleteSong/:id', async (req, res) => {
+
     const songId = req.params.id;
 
     try {
 
-        const response = await songModel.findByIdAndDelete({_id:songId})
+        const response = await songModel.findByIdAndDelete({ _id: songId })
 
-        if(!response) return res.status(400).json({
-            message :"failed to delete"
+        if (!response) return res.status(400).json({
+            message: "failed to delete"
         })
 
         res.status(204).json({
-            message :"song deleted successfully"
+            message: "song deleted successfully"
         })
-        
+
     } catch (err) {
         res.status(500).json({
-            message : err.message || "internal server error"
+            message: err.message || "internal server error"
         })
     }
 })

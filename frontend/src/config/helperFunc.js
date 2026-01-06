@@ -22,3 +22,19 @@ export async function fetchSongsByMood(mood) {
         return err.response
     }
 }
+
+export async function fetchAllSongs() {
+
+
+    try {
+        
+        const response = await axios.post('/song/fetchAllSongs',{
+            withCredentials : true,
+            headers:{""}
+        })
+
+
+    } catch (err) {
+        return err.response
+    }
+}
