@@ -23,18 +23,18 @@ export async function fetchSongsByMood(mood) {
     }
 }
 
-export async function fetchAllSongs() {
+// export async function fetchAllSongs() {
 
 
-    try {
+//     try {
         
-        const response = await axios.post('/song/fetchAllSongs',{
-            withCredentials : true,
-            headers:{""}
-        })
+//         const response = await axios.post('/song/fetchAllSongs',{
+//             withCredentials : true,
+//             headers:{""}
+//         })
 
 
-    } catch (err) {
-        return err.response
-    }
-}
+//     } catch (err) {
+//         return err.response
+//     }
+// }

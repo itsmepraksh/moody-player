@@ -7,7 +7,7 @@ const AppRouter = () => {
     <>
         <Routes  >
             <Route path="/" element={<Home/>}/>
-            <Route index  element={<MoodDetectionUI/>}/>
+            <Route path="/moodDetect"  element={<MoodDetectionUI/>}/>
         </Routes>
     </>
   )
