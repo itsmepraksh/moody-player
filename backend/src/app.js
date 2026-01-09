@@ -10,7 +10,7 @@ app.use(cors({
     credentials : true
 }))
 
-console.log(process.env.FRONTEND_ORIGIN)
+// console.log(process.env.FRONTEND_ORIGIN)
 
 app.use(express.json())
 app.use(express.urlencoded())

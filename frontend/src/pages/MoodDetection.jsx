@@ -127,15 +127,13 @@ const MoodDetection = () => {
                 </div>
 
                 {/* Controls */}
-                <div className="flex-1 max-w-md flex flex-col justify-between bg-blue-900 bg-opacity-30 backdrop-blur-md rounded-3xl p-10 shadow-lg shadow-blue-900/70">
+                <div className="flex-1   flex flex-col justify-between bg-blue-900 bg-opacity-30 backdrop-blur-md rounded-3xl p-10 shadow-lg shadow-blue-900/70">
                     <div>
-
-
                         {loadingError && <p className="text-red-400 text-sm mb-5 font-medium">{loadingError}</p>}
                         {mood && <p className="text-green-400 text-xl mb-5">Detected Mood: {mood}</p>}
                     </div>
 
-                    <div className="flex justify-between gap-5">
+                    <div className="flex justify-between gap-x-5  ">
                         <button
                             onClick={() => setCameraOn(true)}
                             disabled={!modelsLoaded}

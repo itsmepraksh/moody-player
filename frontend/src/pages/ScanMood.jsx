@@ -115,9 +115,9 @@ const ScanMood = () => {
 
                 </div>
 
-                <div id="cta-btn" className="pt-15 md:flex md:w-96   justify-evenly">
-                    <div className="flex w-52 items-center justify-evenly uppercase font-semibold  bg-[#6B11AD] rounded-3xl text-white p-3 px-7 text-xs text-center">
-
+                <div id="cta-btn" className="pt-15 md:flex md:gap-5  md:w-96   justify-evenly">
+                    
+                    <div className="flex w-52 items-center justify-evenly uppercase font-semibold  bg-[#6B11AD] rounded-3xl text-white py-3 px-7 text-xs text-center">
                         <p onClick={() => setCameraOn(true)}
                             disabled={!modelsLoaded}>start scan</p>
                         <FontAwesomeIcon icon={faCirclePause} />
