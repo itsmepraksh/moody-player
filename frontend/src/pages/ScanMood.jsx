@@ -15,6 +15,8 @@ const ScanMood = () => {
     const [modelsLoaded, setModelsLoaded] = useState(false);
     const [loadingError, setLoadingError] = useState(null);
 
+    const [data, setData] = useState(null)
+
 
     const [songList, setSongList] = useState([])
 
@@ -67,6 +69,20 @@ const ScanMood = () => {
                 const sorted = Object.entries(expressions).sort((a, b) => b[1] - a[1]);
                 setMood(sorted[0][0]);
                 console.log("Detected mood:", sorted[0][0]);
+
+
+                if (mood) {
+                    setCameraOn(false)
+                    setTimeout(async () => {
+                        const response = await fetchSongsByMood(mood)
+                        if (response?.data) {
+                            setData(response.data)
+                        }
+                    }, 5000)
+                } else setCameraOn(false)
+
+
+
             } else {
                 console.log("No face detected");
             }
@@ -116,7 +132,7 @@ const ScanMood = () => {
                 </div>
 
                 <div id="cta-btn" className="pt-15 md:flex md:gap-5  md:w-96   justify-evenly">
-                    
+
                     <div className="flex w-52 items-center justify-evenly uppercase font-semibold  bg-[#6B11AD] rounded-3xl text-white py-3 px-7 text-xs text-center">
                         <p onClick={() => setCameraOn(true)}
                             disabled={!modelsLoaded}>start scan</p>
@@ -124,8 +140,8 @@ const ScanMood = () => {
                     </div>
 
                     <p
-                        onClick={() => setCameraOn(false)}
-                        className="text-zinc-500 w-52 uppercase text-xs py-3 border border-zinc-100/20 my-3 text-center rounded-3xl">stop</p>
+                        // onClick={() => setCameraOn(false)}
+                        className="text-zinc-500 w-52 uppercase text-xs py-3 border border-zinc-100/20 my-3 text-center rounded-3xl">retry</p>
                 </div>
 
             </div>

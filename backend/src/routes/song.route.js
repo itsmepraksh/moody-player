@@ -64,6 +64,8 @@ router.get('/fetchAllSongs', async (req, res) => {
 router.post('/getSongs', async (req, res) => {
     const { mood } = req.body;
 
+    console.log(mood)
+
     try {
 
         const response = await songModel.find({ songMood: mood })

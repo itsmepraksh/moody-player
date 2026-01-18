@@ -10,11 +10,12 @@ export async function fetchSongsByMood(mood) {
     } 
     try {
         
-        const response = axios.post('/songs/getSongs',songType,{
+        const response = await axios.post('/songs/getSongs',songType,{
             withCredentials : true,
             headers:{ "Content-Type":"application/json"},
-            timeout:10000
+            timeout:20000
         })
+
 
         return response
 
