@@ -5,6 +5,7 @@ const app = express()
 const songRoute = require('./routes/song.route')
 const authRoute = require('./routes/auth.route')
 const cookieParser = require('cookie-parser')
+const authMiddleware = require('./middleware/auth.middleware')
 
 app.use(cors({
     origin: process.env.FRONTEND_ORIGIN,
@@ -19,7 +20,7 @@ app.use(express.urlencoded())
 app.use(cookieParser())
 
 
-app.get('/',(req,res)=>{
+app.get('/',authMiddleware,(req,res)=>{
     res.send("kanhaji ye work kar raha hai...")
 })
 
