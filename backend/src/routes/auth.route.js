@@ -1,5 +1,5 @@
 const express = require('express')
-const { registerController, loginController } = require('../controller/auth.controller')
+const { registerController, loginController, logoutController, deleteAcController } = require('../controller/auth.controller')
 const router = express.Router()
 
 router.get('/health',(req,res)=>{
@@ -10,6 +10,8 @@ router.post('/login',loginController)
 
 router.post('/register',registerController)
 
-router.get('/logout',loginController)
+router.get('/logout',logoutController)
+
+router.delete('/deleteAc/:id',deleteAcController)
 
 module.exports = router

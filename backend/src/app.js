@@ -4,6 +4,7 @@ const cors = require('cors')
 const app = express()
 const songRoute = require('./routes/song.route')
 const authRoute = require('./routes/auth.route')
+const cookieParser = require('cookie-parser')
 
 app.use(cors({
     origin: process.env.FRONTEND_ORIGIN,
@@ -15,6 +16,7 @@ app.use(cors({
 
 app.use(express.json())
 app.use(express.urlencoded())
+app.use(cookieParser())
 
 
 app.get('/',(req,res)=>{
