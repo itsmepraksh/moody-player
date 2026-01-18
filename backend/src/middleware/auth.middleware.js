@@ -12,8 +12,6 @@ const authMiddleware = async (req,res,next) => {
 
         const decoded = jwt.verify(isToken,process.env.JWT_SECRET)
 
-        console.log(decoded,"ye deko kanhaji")
-
         const user = await userModel.findById(decoded.id).select("-password")
 
         if(!user) return res.status(404).json({
