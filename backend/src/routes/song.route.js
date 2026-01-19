@@ -23,11 +23,11 @@ router.get('/', (req, res) => {
 
 router.get('/fetchAllSongs', fetchAllSongsController)
 
+router.post('/getSongsByMood' ,getSongsByMoodController)
+
 router.get('/:id', authMiddleware, getSongByIdController)
 
 router.post('/addSongs',authMiddleware, upload.single("songUrl"), addSongController)
-
-router.post('/getSongsByMood',authMiddleware ,getSongsByMoodController)
 
 router.patch('/editSongs/:id', authMiddleware, upload.single("songUrl"), editSongController)
 

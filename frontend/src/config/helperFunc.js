@@ -3,18 +3,21 @@ import axios from "../utils/axios"
 
 export async function fetchSongsByMood(mood) {
 
-    console.log(mood)
+    console.log(mood,"ye me helper function ke andar")
 
     const songType = {
         mood :mood
     } 
+
     try {
         
-        const response = await axios.post('/songs/getSongs',songType,{
+        const response = await axios.post('/songs/getSongsByMood',songType,{
             withCredentials : true,
             headers:{ "Content-Type":"application/json"},
             timeout:20000
         })
+
+        console.log(response,"ye helper fun ka response hai kanhaji")
 
 
         return response
@@ -22,7 +25,7 @@ export async function fetchSongsByMood(mood) {
     } catch (err) {
         return err.response
     }
-}
+} 
 
 // export async function fetchAllSongs() {
 

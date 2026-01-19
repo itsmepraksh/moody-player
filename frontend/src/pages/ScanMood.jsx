@@ -5,9 +5,14 @@ import { useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import * as faceapi from "face-api.js";
 import { fetchSongsByMood } from "../config/helperFunc";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setMoodValue } from "../redux/feature/moodSlice";
 
 
 const ScanMood = () => {
+
+    const navigate = useNavigate()
 
     const webcamRef = useRef(null);
     const [mood, setMood] = useState(null);
@@ -20,6 +25,9 @@ const ScanMood = () => {
 
     const [songList, setSongList] = useState([])
 
+    const dispatch = useDispatch()
+
+    console.log(mood, "ye abhi tak load ho rha hai kanhaji")
 
 
 
@@ -53,6 +61,20 @@ const ScanMood = () => {
         return () => clearInterval(intervalId);
     }, [cameraOn, modelsLoaded]);
 
+    // detecting mood and closing camera auto
+    useEffect(() => {
+        if (mood !== null) {
+            const timer = setTimeout(() => {
+                setCameraOn(false)
+                dispatch(setMoodValue(mood))
+                navigate('/moodSong')
+            }, 2000)
+            return ()=> clearTimeout(timer)
+        } else setCameraOn(false)
+
+    }, [mood])
+
+
     const detectMood = async () => {
         if (!webcamRef.current || !webcamRef.current.video) return;
         const video = webcamRef.current.video;
@@ -68,20 +90,7 @@ const ScanMood = () => {
                 const expressions = detections.expressions;
                 const sorted = Object.entries(expressions).sort((a, b) => b[1] - a[1]);
                 setMood(sorted[0][0]);
-                console.log("Detected mood:", sorted[0][0]);
-
-
-                if (mood) {
-                    setCameraOn(false)
-                    setTimeout(async () => {
-                        const response = await fetchSongsByMood(mood)
-                        if (response?.data) {
-                            setData(response.data)
-                        }
-                    }, 5000)
-                } else setCameraOn(false)
-
-
+                // console.log("Detected mood:", sorted[0][0]);
 
             } else {
                 console.log("No face detected");

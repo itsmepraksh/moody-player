@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHeadphones } from "@fortawesome/free-regular-svg-icons"
 import { faArrowRight, faMusic } from "@fortawesome/free-solid-svg-icons"
 import { faIcons } from "@fortawesome/free-solid-svg-icons"
+import { Link } from "react-router-dom"
 
 
 const Home = () => {
@@ -43,10 +44,10 @@ const Home = () => {
         </div>
 
         <div id="cta-btn" className="pt-5">
-          <div className="flex items-center justify-evenly uppercase font-semibold  bg-[#6B11AD] rounded-3xl text-white p-3 px-7 text-sm text-center">
+          <Link to={"/moodDetect"} className="flex items-center justify-evenly uppercase font-semibold  bg-[#6B11AD] rounded-3xl text-white p-3 px-7 text-sm text-center">
             <p>start listening</p>
             <FontAwesomeIcon icon={faArrowRight} />
-          </div>
+          </Link>
 
           <p className="text-zinc-500 uppercase text-xs py-3">no account required for demo</p>
         </div>
