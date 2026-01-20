@@ -24,15 +24,9 @@ const Home = () => {
           <p className="text-center  text-sm font-semibold">Technology</p>
           <p className="text-center  text-sm font-semibold">Premium</p>
         </div>
-
-        <div className="md:flex gap-10 items-center">
+ 
 
           <p className="hidden md:block uppercase text-sm text-white font-semibold">Login</p>
-
-          <p className="rounded-3xl bg-white p-2 w-28 text-center uppercase text-sm shadow font-semibold">join beta</p>
-        </div>
-
-
       </div>
 
 

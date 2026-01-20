@@ -1,6 +1,21 @@
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {faAt, faChartSimple, faEye, faLock} from "@fortawesome/free-solid-svg-icons"
+import {Link} from "react-router-dom"
 
+import {useForm} from "react-hook-form"
+import { loginApi } from "../config/helperFunc"
 
 const Login = () => {
+
+    const { handleSubmit ,register,reset ,formState:{errors} } = useForm()
+
+
+    const LoginHandler = async ({email , password})=>{
+        email = email.trim()
+        password = password.trim()
+
+        const userData = await loginApi(email,password)
+    }
     return (
         <div className="bg-background-light dark:bg-background-dark font-display text-white overflow-hidden">
             <div className="fixed inset-0 bg-mesh z-0">
@@ -11,17 +26,17 @@ const Login = () => {
                 {/* <!-- Top Navigation --> */}
                 <header className="flex items-center justify-between px-10 py-6">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(157,37,244,0.5)]">
-                            <span className="material-symbols-outlined text-white text-2xl">graphic_eq</span>
+                        <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(157,37,244,0.5)]">
+                            <FontAwesomeIcon icon={faChartSimple} />
                         </div>
                         <h2 className="text-white text-xl font-bold tracking-tighter uppercase">SonicFlow</h2>
                     </div>
                     <div className="hidden md:flex items-center gap-8">
                         <a className="text-white/70 hover:text-white text-sm font-medium transition-colors" href="#">Manifesto</a>
                         <a className="text-white/70 hover:text-white text-sm font-medium transition-colors" href="#">Community</a>
-                        <button className="flex min-w-[100px] cursor-pointer items-center justify-center rounded-full h-10 px-6 border border-white/20 hover:bg-white/10 text-white text-sm font-medium transition-all">
+                        <Link to={"/"} className="flex min-w-[100px] cursor-pointer items-center justify-center rounded-full h-10 px-6 border border-white/20 hover:bg-white/10 text-white text-sm font-medium transition-all">
                             Explore
-                        </button>
+                        </Link>
                     </div>
                 </header>
                 {/* <!-- Main Login Content --> */}
@@ -33,30 +48,31 @@ const Login = () => {
                             <p className="text-white/50 text-base font-light">Sync your frequency with the soundscape</p>
                         </div>
                         {/* <!-- Form --> */}
-                        <form className="w-full space-y-6">
+                        <form onSubmit={LoginHandler} className="w-full space-y-6">
                             {/* <!-- Email Field --> */}
                             <div className="flex flex-col gap-2">
                                 <label className="text-white/70 text-xs font-bold uppercase tracking-widest pl-1">Aural Identity</label>
                                 <div className="flex items-center rounded-xl bg-black/30 border border-white/10 transition-all neon-border focus-within:ring-1 focus-within:ring-primary">
                                     <div className="pl-4 text-white/40">
-                                        <span className="material-symbols-outlined text-[20px]">alternate_email</span>
+                                        <FontAwesomeIcon icon={faAt} />
                                     </div>
-                                    <input className="bg-transparent border-none focus:ring-0 text-white w-full h-14 px-4 placeholder:text-white/20 font-light" placeholder="email@example.com" type="email" />
+                                    <input {...register("email",{required:true})} className="bg-transparent outline-none border-none focus:ring-0 text-white w-full h-14 px-4 placeholder:text-white/20 font-light" placeholder="email@example.com" type="email" />
                                 </div>
                             </div>
                             {/* <!-- Password Field --> */}
                             <div className="flex flex-col gap-2">
                                 <div className="flex justify-between items-center px-1">
                                     <label className="text-white/70 text-xs font-bold uppercase tracking-widest">Access Key</label>
-                                    <a className="text-accent-cyan text-[11px] font-bold uppercase tracking-wider hover:underline" href="#">Forgot?</a>
+                                    <Link to={""} className="text-accent-cyan text-[11px] font-bold uppercase tracking-wider hover:underline">Forgot?</Link>
                                 </div>
                                 <div className="flex items-center rounded-xl bg-black/30 border border-white/10 transition-all neon-border focus-within:ring-1 focus-within:ring-primary">
                                     <div className="pl-4 text-white/40">
-                                        <span className="material-symbols-outlined text-[20px]">lock_open</span>
+
+                                        <FontAwesomeIcon icon={faLock} />
                                     </div>
-                                    <input className="bg-transparent border-none focus:ring-0 text-white w-full h-14 px-4 placeholder:text-white/20 font-light" placeholder="••••••••" type="password" />
+                                    <input {...register("password",{required:true})} className="bg-transparent outline-none border-none focus:ring-0 text-white w-full h-14 px-4 placeholder:text-white/20 font-light" placeholder="••••••••" type="password" />
                                     <button className="pr-4 text-white/40 hover:text-white transition-colors" type="button">
-                                        <span className="material-symbols-outlined text-[20px]">visibility</span>
+                                        <FontAwesomeIcon icon={faEye} />
                                     </button>
                                 </div>
                             </div>
@@ -71,41 +87,14 @@ const Login = () => {
                         <div className="mt-10 text-center">
                             <p className="text-white/40 text-sm">
                                 New to SonicFlow?
-                                <a className="text-accent-cyan font-bold hover:text-white transition-colors ml-1" href="#">Create an Account</a>
+                                <Link to={"/register"} className="text-accent-cyan font-bold hover:text-white transition-colors ml-1">Create an Account</Link>
                             </p>
                         </div>
                     </div>
                 </main>
-                {/* <!-- Subtle Background Artwork --> */}
-               
-
-                
             </div>
         </div>
     )
 }
 
 export default Login
-
-
-//  <div className="fixed bottom-0 left-0 w-full h-1/3 pointer-events-none overflow-hidden opacity-30">
-//                     <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-background-dark to-transparent"></div>
-//                     <!-- This div represents an abstract wave visualization -->
-//                     <div className="flex items-end justify-center gap-1 h-full px-10 pb-5">
-//                         <div className="bg-primary/40 w-1 rounded-t-full" style="height: 20%"></div>
-//                         <div className="bg-primary/40 w-1 rounded-t-full" style="height: 40%"></div>
-//                         <div className="bg-primary/40 w-1 rounded-t-full" style="height: 30%"></div>
-//                         <div className="bg-accent-cyan/40 w-1 rounded-t-full" style="height: 60%"></div>
-//                         <div className="bg-primary/40 w-1 rounded-t-full" style="height: 45%"></div>
-//                         <div className="bg-primary/40 w-1 rounded-t-full" style="height: 80%"></div>
-//                         <div className="bg-primary/40 w-1 rounded-t-full" style="height: 55%"></div>
-//                         <div className="bg-accent-cyan/40 w-1 rounded-t-full" style="height: 90%"></div>
-//                         <div className="bg-primary/40 w-1 rounded-t-full" style="height: 40%"></div>
-//                         <div className="bg-primary/40 w-1 rounded-t-full" style="height: 20%"></div>
-//                         <!-- Repeat for visual rhythm -->
-//                         <div className="bg-primary/40 w-1 rounded-t-full" style="height: 30%"></div>
-//                         <div className="bg-accent-cyan/40 w-1 rounded-t-full" style="height: 70%"></div>
-//                         <div className="bg-primary/40 w-1 rounded-t-full" style="height: 50%"></div>
-//                         <div className="bg-primary/40 w-1 rounded-t-full" style="height: 35%"></div>
-//                     </div>
-//                 </div>

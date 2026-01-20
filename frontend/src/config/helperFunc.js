@@ -3,8 +3,6 @@ import axios from "../utils/axios"
 
 export async function fetchSongsByMood(mood) {
 
-    console.log(mood,"ye me helper function ke andar")
-
     const songType = {
         mood :mood
     } 
@@ -17,15 +15,28 @@ export async function fetchSongsByMood(mood) {
             timeout:20000
         })
 
-        console.log(response,"ye helper fun ka response hai kanhaji")
-
-
         return response
 
     } catch (err) {
         return err.response
     }
 } 
+
+export async function loginApi(email , password) {
+
+    const userDta = {email,password}
+    try {
+        const response = await axios.post('/auth/login',{userDta},{
+            withCredentials:true,
+            headers:{"Content-Type" : "application/json"},
+            timeout : 20000
+        })
+
+        return response
+    } catch (err) {
+        return err.response
+    }
+}
 
 // export async function fetchAllSongs() {
 
