@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCirclePause, faCircleQuestion, faHeadphones } from "@fortawesome/free-regular-svg-icons"
-import { faGear, faShield } from "@fortawesome/free-solid-svg-icons"
+import { faChartSimple, faGear, faShield } from "@fortawesome/free-solid-svg-icons"
 import { useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import * as faceapi from "face-api.js";
@@ -26,8 +26,6 @@ const ScanMood = () => {
     const [songList, setSongList] = useState([])
 
     const dispatch = useDispatch()
-
-    console.log(mood, "ye abhi tak load ho rha hai kanhaji")
 
 
 
@@ -69,7 +67,7 @@ const ScanMood = () => {
                 dispatch(setMoodValue(mood))
                 navigate('/moodSong')
             }, 2000)
-            return ()=> clearTimeout(timer)
+            return () => clearTimeout(timer)
         } else setCameraOn(false)
 
     }, [mood])
@@ -102,11 +100,11 @@ const ScanMood = () => {
     return (
 
         <div className="flex flex-col p-5 bg-[#1A1022] min-h-screen w-full" >
-            <div id="top-nav" className="flex justify-between items-center">
+            <div id="top-nav" className="flex justify-between items-center w-80 md:min-w-96 place-self-center">
                 <div className="flex items-center gap-2 justify-around bg-[#211729] text-white border border-zinc-100/10 shadow-md font-medium rounded-3xl p-4 w-full ">
                     <div className="flex items-center gap-4">
-                        <FontAwesomeIcon icon={faHeadphones} />
-                        <p className="text-center  text-sm font-semibold">EmoMusic</p>
+                        <FontAwesomeIcon icon={faChartSimple} />
+                        <p className="text-center  text-sm font-semibold">SonicFlow</p>
                     </div>
                     <div className="flex items-center gap-4">
                         <FontAwesomeIcon icon={faGear} />
@@ -119,7 +117,7 @@ const ScanMood = () => {
             <div id="center-data" className="mt-auto py-5 flex flex-col justify-center items-center">
 
 
-                <div className="relative overflow-hidden w-80 h-60 bg-[#09090C]/50 border border-zinc-100/20 rounded-4xl mix-blend-normal">
+                <div className="relative overflow-hidden w-80 md:w-96 h-60 md:h-96 bg-[#09090C]/50 border border-zinc-100/20 rounded-4xl mix-blend-normal">
                     <div id="tagline" className="absolute z-[99] w-full h-full flex flex-col justify-center items-center animate-bounce [animation-duration:5s] [animation-timing-function:ease-out-in] ">
 
                         <hr className="border border-[#6B11AD]/50 w-60 " />
@@ -140,9 +138,9 @@ const ScanMood = () => {
 
                 </div>
 
-                <div id="cta-btn" className="pt-15 md:flex md:gap-5  md:w-96   justify-evenly">
+                <div id="cta-btn" className="pt-15 md:flex items-center md:gap-5  md:w-96   justify-evenly">
 
-                    <div className="flex w-52 items-center justify-evenly uppercase font-semibold  bg-[#6B11AD] rounded-3xl text-white py-3 px-7 text-xs text-center">
+                    <div className="flex w-52 h-12 items-center justify-evenly uppercase font-semibold  bg-[#6B11AD] rounded-3xl text-white py-3 px-7 text-xs text-center">
                         <p onClick={() => setCameraOn(true)}
                             disabled={!modelsLoaded}>start scan</p>
                         <FontAwesomeIcon icon={faCirclePause} />
@@ -150,7 +148,7 @@ const ScanMood = () => {
 
                     <p
                         // onClick={() => setCameraOn(false)}
-                        className="text-zinc-500 w-52 uppercase text-xs py-3 border border-zinc-100/20 my-3 text-center rounded-3xl">retry</p>
+                        className="text-zinc-500 w-52 h-12 uppercase text-xs py-3 border border-zinc-100/20 my-3 text-center rounded-3xl">retry</p>
                 </div>
 
             </div>

@@ -1,5 +1,5 @@
 import { faHeart, faIdBadge, faMoon } from "@fortawesome/free-regular-svg-icons"
-import { faAngleDown, faChartSimple, faEllipsis, faGear, faPause, faPlay, faShare } from "@fortawesome/free-solid-svg-icons"
+import { faChartSimple, faEllipsis, faGear, faPause, faPlay, faShare } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
@@ -22,9 +22,15 @@ const MoodSong = () => {
     setSongDta(response.data.songs)
   }
 
-  console.log(songDta)
+
   useEffect(() => {
-    fetchSongs()
+
+    async function fetchDta() {
+      await fetchSongs()
+    }
+    fetchDta()
+    
+
   }, [moodDta])
 
 
@@ -53,7 +59,7 @@ const MoodSong = () => {
 
               <FontAwesomeIcon icon={faChartSimple} />
             </div>
-            <h2 className="text-xl font-bold tracking-tight">EmotionFM</h2>
+            <h2 className="text-xl font-bold tracking-tight">SonicFlow</h2>
           </div>
           <div className="flex items-center gap-6">
             {/* <!-- User Profile --> */}

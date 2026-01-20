@@ -1,9 +1,34 @@
 import { faArrowRight, faChartSimple, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { registerApi } from '../api/auth-api'
 
 const Register = () => {
+
+    const {handleSubmit , register,reset ,formState:{errors} } = useForm()
+
+    const navigate = useNavigate()
+
+    const registerHandler = async ({fullName , email , password , confirmPassword})=>{
+
+        fullName = fullName.trim()
+        email = email.trim()
+        password = password.trim()
+        confirmPassword = confirmPassword.trim()
+
+        if(password !== confirmPassword) return toast.error("password not matched")
+
+        const response = await registerApi(fullName ,email , confirmPassword )
+
+        if(response.status !==201) return toast.error( response?.data?.message || "Failed to register")
+
+        toast.success(response?.data?.message ||  "register successfully")
+        
+        navigate('/login')
+    }
     return (
 
         <div className="bg-zinc-900 text-white min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
@@ -23,14 +48,14 @@ const Register = () => {
                             <a className="text-sm font-medium hover:text-primary transition-colors" href="#">Artist Portal</a>
                             <a className="text-sm font-medium hover:text-primary transition-colors" href="#">Support</a>
                         </nav>
-                        <button className="px-6 py-2 border border-white/20 rounded-full text-sm font-medium hover:bg-white/10 transition-all">
+                        <Link to={"/login"} className="px-6 py-2 border border-white/20 rounded-full text-sm font-medium hover:bg-white/10 transition-all">
                             Sign In
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </header>
             {/* <!-- Main Content --> */}
-            <main className="relative z-10 w-full max-w-[1200px] grid lg:grid-cols-2 gap-12 items-center px-6 my-5">
+            <main className="relative z-10 w-full max-w-[1200px] grid lg:grid-cols-2 gap-12 items-center px-6 my-5 md:my-20">
                 {/* <!-- Left Side: Branding/Emotion --> */}
                 <div className="hidden lg:block space-y-8">
                     <div className="space-y-4">
@@ -59,33 +84,33 @@ const Register = () => {
                             <h3 className="text-3xl font-bold mb-2">Create Account</h3>
                             <p className="text-white/50 text-sm">Step into the sonic flow. No strings attached.</p>
                         </div>
-                        <form className="space-y-5">
+                        <form onSubmit={handleSubmit(registerHandler)} className="space-y-5">
                             <div className="space-y-2">
                                 <label className="text-xs font-bold uppercase tracking-widest text-white/40 px-1">Full Name</label>
                                 <div className="relative">
                                     <FontAwesomeIcon className=' absolute left-4 top-1/2 -translate-y-1/2 text-white/30 text-xl' icon={faUser} />
-                                    <input className="input-glass w-full h-14 pl-12 pr-4 rounded-xl focus:outline-none text-white placeholder:text-white/20" placeholder="John Doe" type="text" />
+                                    <input {...register('fullName',{required:true})} className="input-glass w-full h-14 pl-12 pr-4 rounded-xl focus:outline-none text-white placeholder:text-white/20" placeholder="John Doe" type="text" />
                                 </div>
                             </div>
                             <div className="space-y-2">
                                 <label className="text-xs font-bold uppercase tracking-widest text-white/40 px-1">Email Address</label>
                                 <div className="relative">
                                     <FontAwesomeIcon className=' absolute left-4 top-1/2 -translate-y-1/2 text-white/30 text-xl' icon={faEnvelope} />
-                                    <input className="input-glass w-full h-14 pl-12 pr-4 rounded-xl focus:outline-none text-white placeholder:text-white/20" placeholder="name@voyage.com" type="email" />
+                                    <input {...register('email')} className="input-glass w-full h-14 pl-12 pr-4 rounded-xl focus:outline-none text-white placeholder:text-white/20" placeholder="name@voyage.com" type="email" />
                                 </div>
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
                                     <label className="text-xs font-bold uppercase tracking-widest text-white/40 px-1">Password</label>
-                                    <input className="input-glass w-full h-14 px-4 rounded-xl focus:outline-none text-white placeholder:text-white/20" placeholder="••••••••" type="password" />
+                                    <input {...register('password',{required:true})} className="input-glass w-full h-14 px-4 rounded-xl focus:outline-none text-white placeholder:text-white/20" placeholder="••••••••" type="password" />
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-xs font-bold uppercase tracking-widest text-white/40 px-1">Confirm</label>
-                                    <input className="input-glass w-full h-14 px-4 rounded-xl focus:outline-none text-white placeholder:text-white/20" placeholder="••••••••" type="password" />
+                                    <input {...register('confirmPassword',{required:true})} className="input-glass w-full h-14 px-4 rounded-xl focus:outline-none text-white placeholder:text-white/20" placeholder="••••••••" type="password" />
                                 </div>
                             </div>
                             <div className="pt-4">
-                                <button className="glow-button w-full h-14 bg-primary text-background-dark font-bold text-base rounded-xl flex items-center justify-center gap-2 group" type="submit">
+                                <button className="glow-button w-full h-14 bg-purple-800/80 text-background-dark font-bold text-base rounded-xl flex items-center justify-center gap-2 group" type="submit">
                                     <span>Initialize Identity</span>
                                     <FontAwesomeIcon className=' group-hover:translate-x-1 transition-transform' icon={faArrowRight} />
                                 </button>
@@ -116,14 +141,7 @@ const Register = () => {
                     Latency: 14ms
                 </div>
             </div>
-            <div className="fixed bottom-10 right-10 flex gap-6">
-                <a className="size-10 flex items-center justify-center rounded-full glass-panel hover:text-primary transition-colors" href="#">
-                    <svg className="size-5" fill="currentColor" viewbox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path></svg>
-                </a>
-                <a className="size-10 flex items-center justify-center rounded-full glass-panel hover:text-primary transition-colors" href="#">
-                    <svg className="size-5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
-                </a>
-            </div>
+             
         </div>
 
     )

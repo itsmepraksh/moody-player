@@ -1,20 +1,29 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faAt, faChartSimple, faEye, faLock} from "@fortawesome/free-solid-svg-icons"
-import {Link} from "react-router-dom"
-
+import {Link, useNavigate} from "react-router-dom"
 import {useForm} from "react-hook-form"
-import { loginApi } from "../config/helperFunc"
+import { loginApi } from "../api/auth-api"
+import {toast} from "react-toastify"
+
 
 const Login = () => {
 
     const { handleSubmit ,register,reset ,formState:{errors} } = useForm()
+
+    const navigate = useNavigate()
 
 
     const LoginHandler = async ({email , password})=>{
         email = email.trim()
         password = password.trim()
 
-        const userData = await loginApi(email,password)
+        const response = await loginApi(email,password)
+
+        if(response.status !== 200) return toast.error(response?.data?.message || "Failed to login, try again") ;
+
+        toast.success(response.data.message ||"login successfully")
+
+        navigate('/')
     }
     return (
         <div className="bg-background-light dark:bg-background-dark font-display text-white overflow-hidden">
@@ -48,7 +57,7 @@ const Login = () => {
                             <p className="text-white/50 text-base font-light">Sync your frequency with the soundscape</p>
                         </div>
                         {/* <!-- Form --> */}
-                        <form onSubmit={LoginHandler} className="w-full space-y-6">
+                        <form onSubmit={handleSubmit(LoginHandler)} className="w-full space-y-6">
                             {/* <!-- Email Field --> */}
                             <div className="flex flex-col gap-2">
                                 <label className="text-white/70 text-xs font-bold uppercase tracking-widest pl-1">Aural Identity</label>
@@ -58,6 +67,7 @@ const Login = () => {
                                     </div>
                                     <input {...register("email",{required:true})} className="bg-transparent outline-none border-none focus:ring-0 text-white w-full h-14 px-4 placeholder:text-white/20 font-light" placeholder="email@example.com" type="email" />
                                 </div>
+                                {errors.email && <small className="text-red-400 text-xs font-medium">This is required</small>}
                             </div>
                             {/* <!-- Password Field --> */}
                             <div className="flex flex-col gap-2">
@@ -75,6 +85,8 @@ const Login = () => {
                                         <FontAwesomeIcon icon={faEye} />
                                     </button>
                                 </div>
+
+                                {errors.password && <small className="text-red-400 text-xs font-medium">This is required</small>}
                             </div>
                             {/* <!-- Login Button --> */}
                             <div className="pt-4">

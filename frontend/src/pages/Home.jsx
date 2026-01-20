@@ -26,7 +26,7 @@ const Home = () => {
         </div>
  
 
-          <p className="hidden md:block uppercase text-sm text-white font-semibold">Login</p>
+          <Link to={"/login"} className="hidden md:block uppercase text-sm text-white font-semibold">Login</Link>
       </div>
 
 

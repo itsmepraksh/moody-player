@@ -5,16 +5,16 @@ const bcrypt = require('bcrypt')
 
 const loginController = async (req, res) => {
 
-    const {email , password} = req.body
+    const {email , password} = req.body;
 
     try {
         const isUser = await userModel.findOne({email}) ;
 
         if(!isUser) return res.status(401).json({
-            message : "Email or Password gone wrong"
+            message : "user with this email not found "
         })
 
-        const isPassword = bcrypt.compare(isUser.password,password)
+        const isPassword = await bcrypt.compare(password,isUser.password)
 
         if(!isPassword) return res.status(401).json({
             message : "Email or Password gone wrong"
@@ -58,7 +58,7 @@ const logoutController = async (req, res) => {
 
 const registerController = async (req, res) => {
 
-    const { fullName, email, password, userRole } = req.body
+    const { fullName, email, password } = req.body
 
     try {
 
@@ -71,7 +71,7 @@ const registerController = async (req, res) => {
         const userResponse = await userModel.create({
             fullName, email, 
             password : await bcrypt.hash(password,10),
-            userRole
+            userRole : "USER"
         })
 
         if (!userResponse) return res.status(400).json({
