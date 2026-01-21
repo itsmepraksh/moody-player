@@ -3,9 +3,40 @@ import { faHeadphones } from "@fortawesome/free-regular-svg-icons"
 import { faArrowRight, faMusic } from "@fortawesome/free-solid-svg-icons"
 import { faIcons } from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom"
+import { useEffect } from "react"
+import { profileApi } from "../api/auth-api"
+
+import {useDispatch, useSelector} from "react-redux"
+import { setUser } from "../redux/feature/userSlice"
 
 
 const Home = () => {
+
+
+  const dispatch = useDispatch()
+  const user = useSelector((state)=> state.user.user);
+
+  console.log(user)
+
+  const userProfileDta = async ()=>{
+    const response = await profileApi()
+
+    console.log(response)
+
+    if(response.status!==200) return;
+
+    dispatch(setUser(response.data.data))
+
+  }
+
+  useEffect(() => {
+
+     if(!user){
+      userProfileDta();
+     }
+
+  },[user])
+  
   return (
     <div className="flex flex-col p-5 bg-[linear-gradient(to_bottom,#2A0845,#4F0E70,#2A3D80,#1C3265)]
         md:bg-[radial-gradient(circle_at_top_right,rgba(0,0,0,1),transparent_60%),radial-gradient(circle_at_bottom_left,rgba(0,0,0,1),transparent_60%),linear-gradient(to_bottom,#2A0845,#4F0E70,#2A3D80,#1C3265)]

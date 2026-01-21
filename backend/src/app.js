@@ -4,6 +4,7 @@ const cors = require('cors')
 const app = express()
 const songRoute = require('./routes/song.route')
 const authRoute = require('./routes/auth.route')
+const userRoute = require('./routes/user.route')
 const cookieParser = require('cookie-parser')
 const authMiddleware = require('./middleware/auth.middleware')
 
@@ -26,6 +27,7 @@ app.get('/',authMiddleware,(req,res)=>{
 
 app.use('/auth',authRoute)
 app.use('/songs',songRoute)
+app.use('/users',userRoute)
 
 
 module.exports = app

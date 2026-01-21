@@ -8,7 +8,7 @@ import {toast} from "react-toastify"
 
 const Login = () => {
 
-    const { handleSubmit ,register,reset ,formState:{errors} } = useForm()
+    const { handleSubmit ,register,formState:{errors} } = useForm()
 
     const navigate = useNavigate()
 

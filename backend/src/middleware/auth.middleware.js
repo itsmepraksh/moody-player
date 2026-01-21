@@ -12,7 +12,7 @@ const authMiddleware = async (req,res,next) => {
 
         const decoded = jwt.verify(isToken,process.env.JWT_SECRET)
 
-        const user = await userModel.findById(decoded.id).select("-password")
+        const user = await userModel.findById(decoded.id).select("-password -__v")
 
         if(!user) return res.status(404).json({
             message : "user not found"

@@ -14,23 +14,17 @@ const MoodSong = () => {
 
   const [isPlay, setIsPlay] = useState(false)
 
-  console.log(songDta)
-
   const fetchSongs = async () => {
     const response = await fetchSongsByMood(moodDta)
     console.log(response)
     setSongDta(response.data.songs)
   }
 
-
   useEffect(() => {
-
     async function fetchDta() {
       await fetchSongs()
     }
     fetchDta()
-    
-
   }, [moodDta])
 
 
@@ -166,80 +160,6 @@ const MoodSong = () => {
               )
 
               )}
-
-
-              {/* <div className="song-card group/item cursor-pointer">
-                <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
-                  <img alt="Album Art" className="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCatyVNH121xZQV1gcWmXFaW8qJUY_u-5hx1WRXeWWtwD22xCfkRP8Oyio7PxSJRWLWfL6q7VJQxUEO1lZ12eCIKSR6-Xxp8-9a5odrylU-gaTvXWKaC96061ZtVoGlSJc1dPvdSM4hvDwa0on4e9NNkLlsQ819WSHgUsupAK79gNj4Mmj1nRdiED2N85yAiZqasRfcOfWViaceu9xE9zTnO2G4AfAK7VLlLBsWHGltfNgwLtGsEshoueFiFim174d_gqjKuhALU2tI" />
-                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover/item:opacity-100 transition-opacity">
-                    <span className="material-symbols-outlined text-white">play_arrow</span>
-                  </div>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h4 className="font-bold text-white truncate text-lg">Neon Solitude</h4>
-                  <p className="text-white/50 text-sm truncate">Cyber Drift</p>
-                </div>
-                <div className="hidden md:flex items-center gap-6 px-4">
-                  <span className="text-white/40 text-sm font-medium">3:58</span>
-                  <button className="text-white/30 hover:text-white transition-colors">
-                    <span className="material-symbols-outlined">more_horiz</span>
-                  </button>
-                </div>
-              </div>
-              <div className="song-card group/item cursor-pointer">
-                <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
-                  <img alt="Album Art" className="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlJgtqsQcciV-Iq3URvUonLciTeWoY0bfJns1uytL0101QMgwXLtBSK5nxPl5WIKww720bi44PFRR2b_XWboCemjwI3Fm4L8woQYyTMvzX_KRoM1GAtoY_BzNs5W4yr94Qgtzk2lyuEgHMMMumz0H94ZGI0CB8YnFJuYv9FL3aVHxZhjJQakySs3DhGJvjTRUBPPBHXOh8SLUXBet7qgR6jc5-lGkHy3Pm_R3WOsEJNLOFHPa3QbMbxbAuCmnyVvk9AheCN6eN3XkB" />
-                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover/item:opacity-100 transition-opacity">
-                    <span className="material-symbols-outlined text-white">play_arrow</span>
-                  </div>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h4 className="font-bold text-white truncate text-lg">Blue Velvet Night</h4>
-                  <p className="text-white/50 text-sm truncate">Indigo Aura</p>
-                </div>
-                <div className="hidden md:flex items-center gap-6 px-4">
-                  <span className="text-white/40 text-sm font-medium">5:04</span>
-                  <button className="text-white/30 hover:text-white transition-colors">
-                    <span className="material-symbols-outlined">more_horiz</span>
-                  </button>
-                </div>
-              </div>
-              <div className="song-card group/item cursor-pointer">
-                <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
-                  <img alt="Album Art" className="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7vpBgDxKmcfxFgqyvkCNnkQcX6ej_AwViaFrXUY5WoZFrHeTzJ8b76UKHqkFLzmj50HTCd4QfZC5AQeXtN6Wc3xSiNfzIn48Oy0jykynCAu4VvF2Sz5pT8UUOKgvCbPebh7mkes5rdkuJ-hgLljUn7OZa0LvAd2MxmEmnDa6eC4VnurPFXJ549q02m69WwPduRcjaaYArbHcmcG_4q_zY5HBmfw2j43fK-wwAtHk5QUyPFETxcCbRehrymjGXV2vtXgs7zr1A2bef" />
-                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover/item:opacity-100 transition-opacity">
-                    <span className="material-symbols-outlined text-white">play_arrow</span>
-                  </div>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h4 className="font-bold text-white truncate text-lg">Floating Through Cities</h4>
-                  <p className="text-white/50 text-sm truncate">The Midnight Ghost</p>
-                </div>
-                <div className="hidden md:flex items-center gap-6 px-4">
-                  <span className="text-white/40 text-sm font-medium">4:45</span>
-                  <button className="text-white/30 hover:text-white transition-colors">
-                    <span className="material-symbols-outlined">more_horiz</span>
-                  </button>
-                </div>
-              </div>
-              <div className="song-card group/item cursor-pointer">
-                <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
-                  <img alt="Album Art" className="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGzvOpzkmM-ByKxU_Lp7fhkd9b3e4Q4zj2UxdaXVJYXQb9aWEUFiQXZduV4m4QhqP3LI3bcty-u3GioVkQzpnhfm0SiPzM8EoycHN3DPv0mjeL5zU5mQGqOS5R5CdLjxUX3ymdoaWsYnW9afgNyhn3pHKbtycwkHBOpuBFZDIH5qIlEAfGbIJBR48myS96z2Y79qPF9e3bgDoUUah-hsgfddr32nJmNB8y8ncww9ZyMY3tiz5Q7utXWgeqv_MzfIDcin6gD1TgOylj" />
-                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover/item:opacity-100 transition-opacity">
-                    <span className="material-symbols-outlined text-white">play_arrow</span>
-                  </div>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h4 className="font-bold text-white truncate text-lg">After Dark Dreams</h4>
-                  <p className="text-white/50 text-sm truncate">Synthwave Collective</p>
-                </div>
-                <div className="hidden md:flex items-center gap-6 px-4">
-                  <span className="text-white/40 text-sm font-medium">3:27</span>
-                  <button className="text-white/30 hover:text-white transition-colors">
-                    <span className="material-symbols-outlined">more_horiz</span>
-                  </button>
-                </div>
-              </div> */}
             </div>
           </div>
         </div>

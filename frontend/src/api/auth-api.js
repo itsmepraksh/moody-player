@@ -30,3 +30,18 @@ export async function registerApi(fullName,email,password) {
         return err.response
     }
 }
+
+export async function profileApi() {
+    try {
+        const response = await axios.get('/users/profile',{
+            withCredentials:true,
+            headers:{"Content-Type":"application/json"},
+            timeout : 20000
+        })
+
+        return response
+
+    } catch (err) {
+        return err.response
+    }
+}
