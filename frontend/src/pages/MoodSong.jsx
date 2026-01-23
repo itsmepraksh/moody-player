@@ -3,7 +3,8 @@ import { faChartSimple, faEllipsis, faGear, faPause, faPlay, faShare } from "@fo
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
-import { fetchSongsByMood } from "../config/helperFunc"
+import { fetchSongsByMood } from "../api/song-api"
+import { toast } from "react-toastify"
 
 
 const MoodSong = () => {
@@ -28,17 +29,34 @@ const MoodSong = () => {
   }, [moodDta])
 
 
+
+  const isLogined = useSelector(state => state.user.user)
+
+
   const audioPlay = ()=>{
     console.log("audio play hoga kanhaji")
+
+    if(!isLogined){
+      toast.info("Please login to play the song")
+      return
+    }
+
     document.getElementById("player").play();
     setIsPlay(!isPlay)
   }
 
   const audioPause = ()=>{
+
+    if(!isLogined){
+      toast.info("Please login to pause the song")
+      return
+    }
+
     document.getElementById("player").pause()
     setIsPlay(!isPlay)
   }
  
+
 
 
   return (

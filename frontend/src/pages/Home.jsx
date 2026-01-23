@@ -16,7 +16,6 @@ const Home = () => {
   const dispatch = useDispatch()
   const user = useSelector((state)=> state.user.user);
 
-  console.log(user)
 
   const userProfileDta = async ()=>{
     const response = await profileApi()
@@ -36,6 +35,9 @@ const Home = () => {
      }
 
   },[user])
+
+
+  console.log(user,"ye redux se aya hai")
   
   return (
     <div className="flex flex-col p-5 bg-[linear-gradient(to_bottom,#2A0845,#4F0E70,#2A3D80,#1C3265)]

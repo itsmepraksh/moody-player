@@ -1,10 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCirclePause, faCircleQuestion, faHeadphones } from "@fortawesome/free-regular-svg-icons"
+import { faCirclePause, faCircleQuestion } from "@fortawesome/free-regular-svg-icons"
 import { faChartSimple, faGear, faShield } from "@fortawesome/free-solid-svg-icons"
 import { useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import * as faceapi from "face-api.js";
-import { fetchSongsByMood } from "../config/helperFunc";
+// import { fetchSongsByMood } from "../api/song-api";
+
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setMoodValue } from "../redux/feature/moodSlice";

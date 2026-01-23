@@ -4,6 +4,8 @@ import {Link, useNavigate} from "react-router-dom"
 import {useForm} from "react-hook-form"
 import { loginApi } from "../api/auth-api"
 import {toast} from "react-toastify"
+import { useDispatch } from "react-redux"
+import { setUser } from "../redux/feature/userSlice"
 
 
 const Login = () => {
@@ -11,6 +13,11 @@ const Login = () => {
     const { handleSubmit ,register,formState:{errors} } = useForm()
 
     const navigate = useNavigate()
+
+    const dispatch = useDispatch()
+
+
+
 
 
     const LoginHandler = async ({email , password})=>{
@@ -21,9 +28,11 @@ const Login = () => {
 
         if(response.status !== 200) return toast.error(response?.data?.message || "Failed to login, try again") ;
 
-        toast.success(response.data.message ||"login successfully")
+        console.log(response)
+        // dispatch(setUser(response.data.user))
+        // toast.success(response.data.message ||"login successfully")
 
-        navigate('/')
+        // navigate('/')
     }
     return (
         <div className="bg-background-light dark:bg-background-dark font-display text-white overflow-hidden">
