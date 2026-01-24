@@ -47,19 +47,27 @@ const getSongsByMoodController = async (req, res) => {
 
 const editSongController = async (req, res) => {
     const songId = req.params.id;
-    const { songMood, songName } = req.body;
+    const { songMood, songName , description } = req.body;
 
-    if (!songMood || !songName ) return res.status(400).json({
+    if (!songMood && !songName && !description) return res.status(400).json({
         message: "required all field data"
     })
 
     try {
+        const updateData = {};
 
-        const fileDta = await uploadFile(req.file);
+        if (songMood) updateData.songMood = songMood;
+        if (songName) updateData.songName = songName;
+        if (description) updateData.description = description;
 
-        const songRes = await songModel.findByIdAndUpdate({ _id: songId }, {
-            songName, songMood, songUrl: fileDta.url
-        },
+        if (req.file) {
+            const fileDta = await uploadFile(req.file);
+            updateData.songUrl = fileDta.url;
+        }
+ 
+
+        const songRes = await songModel.findByIdAndUpdate({ _id: songId },  
+            updateData,
             { new: true })
 
         if (!songRes) return res.status(404).json({

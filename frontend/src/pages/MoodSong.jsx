@@ -5,9 +5,12 @@ import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { fetchSongsByMood } from "../api/song-api"
 import { toast } from "react-toastify"
+import { useNavigate } from "react-router-dom"
 
 
 const MoodSong = () => {
+
+  const navigate = useNavigate()
 
   const moodDta = useSelector(state => state.mood.value)
 
@@ -66,7 +69,7 @@ const MoodSong = () => {
       <div className="relative z-10 flex h-full flex-col">
         {/* <!-- Header (Modified TopNavBar for transparency) --> */}
         <header className="flex w-full items-center justify-between px-8 py-6 lg:px-12">
-          <div className="flex items-center gap-4 text-white/90 hover:text-white transition-colors cursor-pointer">
+          <div onClick={()=>navigate('/')} className="flex items-center gap-4 text-white/90 hover:text-white transition-colors cursor-pointer">
             <div className="size-6 text-primary">
 
               <FontAwesomeIcon icon={faChartSimple} />
@@ -110,7 +113,8 @@ const MoodSong = () => {
                 <div className="flex flex-col gap-2">
                   <span className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-200/80">Current Vibe Detected</span>
                   <h1 className="text-3xl md:text-6xl lg:text-7xl font-bold leading-[0.9] text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-white/60 text-glow pb-2">
-                    Melancholic<br className="hidden md:block" /> Bliss
+                    {
+                      moodDta ? moodDta : "Unknown Mood"} 
                   </h1>
                 </div>
                 <p className="text-sm text-white/70 font-light leading-relaxed max-w-md">

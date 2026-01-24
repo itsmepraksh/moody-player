@@ -16,10 +16,6 @@ const Login = () => {
 
     const dispatch = useDispatch()
 
-
-
-
-
     const LoginHandler = async ({email , password})=>{
         email = email.trim()
         password = password.trim()
@@ -28,11 +24,10 @@ const Login = () => {
 
         if(response.status !== 200) return toast.error(response?.data?.message || "Failed to login, try again") ;
 
-        console.log(response)
-        // dispatch(setUser(response.data.user))
-        // toast.success(response.data.message ||"login successfully")
+        dispatch(setUser(response.data.user))
+        toast.success(response.data.message ||"login successfully")
 
-        // navigate('/')
+        navigate('/')
     }
     return (
         <div className="bg-background-light dark:bg-background-dark font-display text-white overflow-hidden">

@@ -5,8 +5,8 @@ const songSchema =  new mongoose.Schema({
     songName : String,
     songMood : String,
     songUrl : String,
-    songArtist : String
-
+    songArtist : String,
+    description : String,
 })
 
 

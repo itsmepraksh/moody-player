@@ -9,6 +9,7 @@ import * as faceapi from "face-api.js";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setMoodValue } from "../redux/feature/moodSlice";
+import { toast } from "react-toastify";
 
 
 const ScanMood = () => {
@@ -89,10 +90,12 @@ const ScanMood = () => {
                 const expressions = detections.expressions;
                 const sorted = Object.entries(expressions).sort((a, b) => b[1] - a[1]);
                 setMood(sorted[0][0]);
-                // console.log("Detected mood:", sorted[0][0]);
+                console.log("Detected mood:", sorted[0][0]);
 
             } else {
                 console.log("No face detected");
+                toast.info("No face detected, please try again");
+                setMood(null);
             }
         } catch (err) {
             console.error("Face detection error:", err);

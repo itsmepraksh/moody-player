@@ -99,7 +99,7 @@ const Home = () => {
 
         <hr className="hidden md:block border-zinc-100/20 border-[0.25px] w-[2rem] my-3 md:rotate-[90deg]" />
 
-        <h1 className="hidden md:block">Powered by itsmepraksh</h1>
+        <Link to={"https://itsmepraksh-portfolio.vercel.app/"} className="hidden md:block">Powered by itsmepraksh</Link>
       </div>
     </div>
   )
