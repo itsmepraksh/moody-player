@@ -19,6 +19,11 @@ app.use(cors({
 app.use(express.json())
 app.use(express.urlencoded())
 app.use(cookieParser())
+app.use(express.static(path.join(__dirname,'../public')));
+
+app.get("*name",(req,res)=>{
+    res.sendFile(path.join(__dirname,'../public/index.html'))
+})
 
 
 app.get('/',authMiddleware,(req,res)=>{
