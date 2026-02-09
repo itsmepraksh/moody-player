@@ -1,6 +1,7 @@
 
 const express = require('express')
 const cors = require('cors')
+const path =require('path')
 const app = express()
 const songRoute = require('./routes/song.route')
 const authRoute = require('./routes/auth.route')
@@ -26,9 +27,9 @@ app.get("*name",(req,res)=>{
 })
 
 
-app.get('/',authMiddleware,(req,res)=>{
-    res.send("kanhaji ye work kar raha hai...")
-})
+// app.get('/',authMiddleware,(req,res)=>{
+//     res.send("kanhaji ye work kar raha hai...")
+// })
 
 app.use('/auth',authRoute)
 app.use('/songs',songRoute)
