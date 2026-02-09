@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const instance = axios.create({
-    baseURL : import.meta.env.VITE_APP_BACKEND_ORIGIN,
+    baseURL : "https://moody-player-a74v.onrender.com",
     withCredentials:true
 })
 
